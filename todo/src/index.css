@@ -1,13 +1,206 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap");
+
+:root {
+  --font: "Josefin Sans", sans-serif;
+  --gradient: linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+
+}
+* {
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  font-size: 18px;
+}
+
+/* General CSS*/
+
+.main-container {
+  width: 1440px;
+  height: 810px;
+  border: 1px solid red;
+  background-image: url(./images/bg-desktop-dark.jpg);
+  background-repeat: no-repeat;
+  display: grid;
+  place-items: center;
+  background-color: hsl(235, 21%, 11%);
+}
+
+.wrapper {
+  position: relative;
+  width: 700px;
+  border: 1px solid blue;
+  height: 60%;
+}
+
+svg {
+  cursor:pointer;
+}
+/* Header CSS*/
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#todo {
+  color: #fff;
+  font-family: var(--font);
+  letter-spacing: 10px;
+  font-weight: 700;
+}
+/*Add task*/ 
+#newTask {
+  background-color: hsl(235, 24%, 19%);
+  height: 59px;
+  width: 100%;
+  border: none;
+  outline: none;
+  caret-color: hsl(220, 98%, 61%);
+  color: hsl(234, 39%, 85%);
+font-size: 18px;
+font-family: var(--font);
+padding: 0;
+}
+
+form {
+  margin-bottom: 50px;
+}
+/* Tasks CSS */
+.task-container {
+  background-color: hsl(235, 24%, 19%);
+  display: flex;
+  align-items: center;
+  height: 60px;
+  border-bottom: 1px solid hsl(235, 19%, 35%);
+  padding: 0;
+  
+  padding-left: 30px;
+}
+.task {
+  
+  color: hsl(234, 39%, 85%);
+  font-size: 18px;
+  font-family: var(--font);
+font-weight: 400;
+}
+
+.task-container h3 {
+  margin: 0;
+}
+.striked {
+  text-decoration: line-through;
+  color: hsl(234, 11%, 52%) ;
+  font-size: 18px;
+  font-family: var(--font);
+font-weight: 400;
+}
+
+.task:hover {
+  cursor: pointer;
+}
+.striked:hover {
+  cursor: pointer;
+}
+
+#cross {
+  margin-left: auto;
+  margin-right: 20px;
+  visibility: hidden;
+  cursor: pointer;
+}
+.task-container:hover > #cross {
+  visibility: visible;
+}
+/* Checkbox CSS*/
+.checkbox {
+  position: relative;
+  margin-right: 30px;
+}
+.checkbox label {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  background-color: invisible;
+  border: 0.5px solid hsl(234, 39%, 85%);
+  border-radius: 50%;
+  cursor: pointer;
+  height: 25px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 25px;
+}
+
+.checkbox label:after {
+  border-top: none;
+  border-right: none;
+  content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='9'%3E%3Cpath fill='none' stroke='%23FFF' stroke-width='2' d='M1 4.304L3.696 7l6-6'/%3E%3C/svg%3E");
+  opacity: 0;
+  font-size: 18px;
+
+
+}
+
+.checkbox input[type="checkbox"] {
+  visibility: hidden;
+}
+
+.checkbox input[type="checkbox"]:checked + label {
+  background: linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+}
+
+.checkbox input[type="checkbox"]:checked + label:after {
+  opacity: 1;
+}
+
+.checkbox label:hover {
+ border-color: var(--gradient);
+  
+}
+.checkbox label::before {
+  border-radius: 100%;
+  content: '';
+  background-image: linear-gradient(to bottom, #3acfd5 0%, #3a4ed5 100%);
+  top: -10px;
+  left: -10px;
+  bottom: -10px;
+  right: -10px;
+  position: absolute;
+  z-index:-1;
+}
+
+/* Footer CSS*/ 
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  width: 100%;
+  color: hsl(234, 11%, 52%) ;
+  height: 50px;
+  position: absolute;
+  bottom: 0;
+  font-size: 15px;
+  font-family: var(--font);
+font-weight: 400;
+}
+.filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 30%;
+}
+
+.hover:hover {
+  cursor: pointer;
+  color: hsl(234, 39%, 85%);
+}
+.hover:focus:not(.clear) {
+  color: hsl(220, 98%, 61%);
 }
