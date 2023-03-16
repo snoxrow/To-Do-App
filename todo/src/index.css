@@ -53,6 +53,15 @@ svg {
   letter-spacing: 10px;
   font-weight: 700;
 }
+
+
+/* No tasks*/ 
+.emptyTask {
+  text-align: center;
+  font-size: 30px;
+  font-family: var(--font);
+  color: hsl(234, 39%, 85%);
+}
 /*Add task*/ 
 #newTask {
   background-color: hsl(235, 24%, 19%);

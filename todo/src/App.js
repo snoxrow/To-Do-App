@@ -1,37 +1,54 @@
-import { useState } from "react";
+import { cloneElement, useState } from "react";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import NewTask from "./components/NewTask";
 import Tasks from "./components/Tasks";
 
+const data = [
+  {
+    text: "Complete something",
+    id: 1,
+    checked: false,
+  },
+  {
+    text: "Another thing",
+    id: 2,
+    checked: true,
+  },
+  {
+    text: "and another",
+    id: 3,
+    checked: false,
+  },
+];
 function App() {
-  const [tasks, setTasks] = useState([
-    {
-      text: "Complete something",
-      id: 1,
-      checked: false,
-    },
-    {
-      text: "Another thing",
-      id: 2,
-      checked: true,
-    },
-    {
-      text: "and another",
-      id: 3,
-      checked: false,
-    },
-  ]);
+  const [tasks, setTasks] = useState(data);
+
+  const temp = [...tasks];
+  // Add Task
+
+  const addTask = (task) => {
+    const id = Math.floor(Math.random() * 1000) + 1;
+    const newTask = { id, ...task };
+    setTasks([...tasks, newTask]);
+  };
 
   // Delete Task
 
   const deleteTask = (id) => {
-    setTasks(tasks.filter((task) => task.id !== id));
+    setTasks(temp.filter((task) => task.id !== id));
+    console.log(temp);
   };
 
   //Clear completed
   const clearCompleted = () => {
-    setTasks(tasks.filter((task) => task.checked !== true));
+    setTasks(temp.filter((task) => task.checked !== true));
+    console.log(temp);
+  };
+
+  const showCompleted = () => {
+    setTasks(temp.filter((task) => task.checked == true));
+    console.log(temp);
   };
   function toggleCheck(id) {
     setTasks(
@@ -43,10 +60,14 @@ function App() {
 
   //show all tasks
   const showAll = () => {
-    setTasks( tasks );
+    setTasks(data);
   };
-  const activeElements = tasks.filter((task) => task.checked == false);
 
+  const remainingTasks = temp.filter((task) => task.checked == false);
+
+  // const activeTasks = () => {
+  //   setTasks(
+  //   tasks.filter((task) => task.checked == true))}
 
   return (
     <div className="main-container">
@@ -62,14 +83,19 @@ function App() {
             </svg>
           }
         />
-        <NewTask task={tasks} />
-        <Tasks tasks={tasks} onCheck={toggleCheck} onDelete={deleteTask} />
-
+        <NewTask task={tasks} onAdd={addTask} />
+        {tasks.length > 0 ? (
+          <Tasks tasks={tasks} onCheck={toggleCheck} onDelete={deleteTask} />
+        ) : (
+          <h1 className="emptyTask">Tasks you add will be viewed here!</h1>
+        )}
         <Footer
-          count={activeElements.length}
+          count={remainingTasks.length}
           onClear={clearCompleted}
           task={tasks}
           showAll={showAll}
+          onActive={() => setTasks(remainingTasks)}
+          onCompleted={showCompleted}
         />
       </div>
     </div>

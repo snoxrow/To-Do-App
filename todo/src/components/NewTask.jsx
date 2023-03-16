@@ -1,13 +1,31 @@
-import React from 'react'
-import Checkbox from './Checkbox'
+import React, { useState } from "react";
+import Checkbox from "./Checkbox";
 
-const NewTask = ({task}) => {
+const NewTask = ({ task, onAdd }) => {
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    if (!text) {
+      alert("Please add a task");
+      return;
+    }
+
+    onAdd({ text });
+    setText("");
+  };
+  const [text, setText] = useState("");
   return (
-    <form className='task-container'>
+    <form className="task-container" onSubmit={onSubmit}>
       <Checkbox task={task} />
-      <input id='newTask' type="text" placeholder='Create a new todo...'/>
+      <input
+        id="newTask"
+        type="text"
+        placeholder="Create a new todo..."
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
     </form>
-  )
-}
+  );
+};
 
-export default NewTask
+export default NewTask;
